@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Special Question ❤️</title>
+<style>
+body {
+  margin: 0;
+  height: 100vh;
+  font-family: Arial, sans-serif;
+  background: linear-gradient(135deg, #ffdde1, #ee9ca7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.page { text-align: center; display: none; }
+.active { display: block; }
+
+h1 {
+  font-size: 2rem;
+  color: #fff;
+  margin: 20px;
+}
+
+button {
+  padding: 15px 30px;
+  font-size: 18px;
+  margin: 20px;
+  border: none;
+  border-radius: 30px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+#yesBtn { background: #ff4d6d; color: white; }
+#noBtn {
+  background: #333; color: white;
+  position: absolute;
+}
+
+.proposal {
+  font-size: 1.8rem;
+  color: white;
+  animation: pop 1s ease-in-out infinite alternate;
+}
+
+@keyframes pop {
+  from { transform: scale(1); }
+  to { transform: scale(1.1); }
+}
+
+/* Confetti */
+.confetti {
+  position: fixed;
+  width: 10px;
+  height: 10px;
+  background-color: red;
+  top: 0; left: 50%;
+  pointer-events: none;
+  animation: fall 3s linear infinite;
+  opacity: 0.8;
+}
+@keyframes fall {
+  0% { transform: translateY(0) rotate(0deg); }
+  100% { transform: translateY(100vh) rotate(360deg); }
+}
+
+/* Floating hearts */
+.heart {
+  position: absolute;
+  font-size: 24px;
+  animation: floatUp 4s linear infinite;
+}
+@keyframes floatUp {
+  0% { transform: translateY(0); opacity:1; }
+  100% { transform: translateY(-400px); opacity:0; }
+}
+</style>
+</head>
+<body>
+
+<!-- Page 1 -->
+<div id="page1" class="page active">
+  <h1>I will tell you one sceret rakshasi ❤️</h1>
+  <button id="yesBtn">Yes 💖</button>
+  <button id="noBtn">No 🙈</button>
+</div>
+
+<!-- Page 2 -->
+<div id="page2" class="page">
+  <div class="proposal">
+    💍 OMG! You said YES! 💍<br>
+    I promise to make you laugh, spoil you with silly surprises, <br>
+    and fill your life with endless love and happiness ❤️
+  </div>
+</div>
+
+<script>
+const noBtn = document.getElementById("noBtn");
+const yesBtn = document.getElementById("yesBtn");
+
+// Move "No" button (desktop hover + mobile touch)
+function moveNoButton() {
+  const x = Math.random() * (window.innerWidth - noBtn.offsetWidth);
+  const y = Math.random() * (window.innerHeight - noBtn.offsetHeight);
+  noBtn.style.left = x + "px";
+  noBtn.style.top = y + "px";
+}
+noBtn.addEventListener("mouseover", moveNoButton);
+noBtn.addEventListener("touchstart", moveNoButton);
+
+// Click "Yes" → show proposal with confetti & hearts
+yesBtn.addEventListener("click", () => {
+  document.getElementById("page1").classList.remove("active");
+  document.getElementById("page2").classList.add("active");
+
+  // Confetti
+  for (let i=0; i<100; i++) {
+    const conf = document.createElement("div");
+    conf.className = "confetti";
+    conf.style.backgroundColor = `hsl(${Math.random()*360}, 100%, 50%)`;
+    conf.style.left = Math.random()*window.innerWidth + "px";
+    conf.style.animationDuration = 2 + Math.random()*3 + "s";
+    document.body.appendChild(conf);
+    setTimeout(() => conf.remove(), 5000);
+  }
+
+  // Floating hearts
+  setInterval(() => {
+    const heart = document.createElement("div");
+    heart.className = "heart";
+    heart.style.left = Math.random()*window.innerWidth + "px";
+    heart.style.color = `hsl(${Math.random()*360}, 100%, 50%)`;
+    heart.textContent = "❤️";
+    document.body.appendChild(heart);
+    setTimeout(() => heart.remove(), 4000);
+  }, 300);
+});
+</script>
+
+</body>
+</html>
